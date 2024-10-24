@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Expenses Analysis</title>
+  <title>Анализ Расходов</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
+      max-width: 100vw; /* Prevent horizontal overflow */
+      overflow-x: hidden; /* Hide horizontal scrollbar */
     }
     header {
       background: #4CAF50;
@@ -24,11 +26,12 @@
       margin: auto;
       max-width: 600px;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between; /* Align charts in a single line */
+      flex-wrap: nowrap; /* Prevent wrapping */
     }
     canvas {
-      max-width: 300px;
-      max-height: 300px;
+      max-width: 250px; /* Adjusted max width for smaller pie chart */
+      height: auto; /* Maintain aspect ratio */
     }
     table {
       width: 100%;
@@ -70,61 +73,65 @@
         font-size: 14px;
         padding: 8px 12px;
       }
+      .chart-container {
+        flex-direction: column; /* Stack charts on small screens */
+        align-items: center; /* Center align charts */
+      }
       canvas {
-        max-width: 100%;
+        max-width: 100%; /* Allow full width on small screens */
       }
     }
   </style>
 </head>
 <body>
 <header>
-  <h1>Expenses Analysis</h1>
+  <h1>Анализ Расходов</h1>
 </header>
 <main>
-  <h2>Your Expenses</h2>
+  <h2>Ваши Расходы</h2>
   <div class="chart-container">
     <div>
       <canvas id="expensesBarChart"></canvas>
-      <h3>Expenses by Type (Bar Chart)</h3>
+      <h3>Расходы по Типу (Гистограмма)</h3>
     </div>
     <div>
       <canvas id="expensesPieChart"></canvas>
-      <h3>Expenses Distribution (Pie Chart)</h3>
+      <h3>Распределение Расходов (Круговая Диаграмма)</h3>
     </div>
   </div>
-  <h3>Expenses List</h3>
+  <h3>Список Расходов</h3>
   <table id="expensesTable">
     <thead>
     <tr>
-      <th>Price</th>
-      <th>Type</th>
-      <th>Product Type</th>
-      <th>Date</th>
+      <th>Сумма</th>
+      <th>Тип</th>
+      <th>Тип Продукта</th>
+      <th>Дата</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Expenses will be added here dynamically -->
+    <!-- Расходы будут добавлены здесь динамически -->
     </tbody>
   </table>
 </main>
 <footer>
-  <button class="button" onclick="location.href='expenses.html'">Finance Analysis</button>
-  <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
-  <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+  <button class="button" onclick="location.href='expenses.html'">Анализ Финансов</button>
+  <button class="big-button" onclick="location.href='chat.html'">Чат-Бот</button>
+  <button class="button" onclick="location.href='bills.html'">Страница Счетов</button>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Default expenses data
+  // Данные о расходах по умолчанию
   const expenses = [
-    { price: 50, type: 'Food', productType: 'Groceries', date: '2023-10-01' },
-    { price: 30, type: 'Transport', productType: 'Bus', date: '2023-10-02' },
-    { price: 100, type: 'Utilities', productType: 'Electricity', date: '2023-10-03' },
-    { price: 20, type: 'Food', productType: 'Dining', date: '2023-10-04' },
-    { price: 200, type: 'Shopping', productType: 'Clothing', date: '2023-10-05' },
+    { price: 50, type: 'Еда', productType: 'Продукты', date: '2023-10-01' },
+    { price: 30, type: 'Транспорт', productType: 'Автобус', date: '2023-10-02' },
+    { price: 100, type: 'Коммунальные Услуги', productType: 'Электричество', date: '2023-10-03' },
+    { price: 20, type: 'Еда', productType: 'Ужин', date: '2023-10-04' },
+    { price: 200, type: 'Шопинг', productType: 'Одежда', date: '2023-10-05' },
   ];
 
-  // Function to render expenses in the table
+  // Функция для отображения расходов в таблице
   function renderExpenses() {
     const tableBody = document.querySelector('#expensesTable tbody');
     expenses.forEach(expense => {
@@ -139,7 +146,7 @@
     });
   }
 
-  // Function to render the bar chart
+  // Функция для отображения гистограммы
   function renderBarChart() {
     const ctx = document.getElementById('expensesBarChart').getContext('2d');
     const labels = [...new Set(expenses.map(exp => exp.type))];
@@ -154,7 +161,7 @@
       data: {
         labels: labels,
         datasets: [{
-          label: 'Expenses by Type',
+          label: 'Расходы по Типу',
           data: data,
           backgroundColor: 'rgba(76, 175, 80, 0.6)',
         }],
@@ -170,7 +177,7 @@
     });
   }
 
-  // Function to render the pie chart
+  // Функция для отображения круговой диаграммы
   function renderPieChart() {
     const ctx = document.getElementById('expensesPieChart').getContext('2d');
     const labels = [...new Set(expenses.map(exp => exp.type))];
@@ -185,7 +192,7 @@
       data: {
         labels: labels,
         datasets: [{
-          label: 'Expenses Distribution',
+          label: 'Распределение Расходов',
           data: data,
           backgroundColor: [
             'rgba(76, 175, 80, 0.6)',
@@ -202,7 +209,7 @@
     });
   }
 
-  // Initialize the page
+  // Инициализация страницы
   renderExpenses();
   renderBarChart();
   renderPieChart();

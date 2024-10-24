@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Bot</title>
+  <title>Чат-Бот</title>
   <style>
+    .clear-button {
+      background: red; /* Красный цвет для кнопки очистки */
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px; /* Отступ сверху */
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      padding-bottom: 80px; /* Space for the sticky footer */
+      padding-bottom: 80px; /* Отступ для фиксированного футера */
       background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Ensure full height for sticky footer */
+      min-height: 100vh; /* Обеспечить полную высоту для фиксированного футера */
     }
     header {
       background: #4CAF50;
@@ -25,9 +35,9 @@
       background: white;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 100%; /* Allow full width on small screens */
-      width: 600px; /* Set a max width */
-      height: 500px; /* Fixed height for the chat container */
+      max-width: 100%; /* Полная ширина на маленьких экранах */
+      width: 600px; /* Максимальная ширина */
+      height: 500px; /* Фиксированная высота для контейнера чата */
       margin: auto;
       padding: 20px;
       display: flex;
@@ -41,7 +51,8 @@
       border-radius: 5px;
       margin-bottom: 10px;
       background-color: #fafafa;
-      padding-bottom: 30px; /* Extra padding for margin effect */
+      padding-bottom: 30px; /* Дополнительный отступ для эффекта */
+      font-size: 18px; /* Увеличение размера шрифта для сообщений */
     }
     .message {
       margin: 5px 0;
@@ -53,13 +64,13 @@
     .bot-message {
       text-align: left;
       color: #333;
-      opacity: 0; /* Start hidden for animation */
-      transition: opacity 0.5s ease; /* Animation for fade-in effect */
+      opacity: 0; /* Скрыто для анимации */
+      transition: opacity 0.5s ease; /* Анимация для эффекта появления */
     }
     .loading {
       font-size: 16px;
       color: #333;
-      display: none; /* Hidden by default */
+      display: none; /* Скрыто по умолчанию */
     }
     .dot {
       display: inline-block;
@@ -94,7 +105,7 @@
       margin: 5px;
       border-radius: 5px;
       cursor: pointer;
-      flex: 1 1 100px; /* Flexible button size */
+      flex: 1 1 100px; /* Гибкий размер кнопки */
     }
     .button-container button:hover {
       background: #45a049;
@@ -107,6 +118,7 @@
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
+      font-size: 16px; /* Увеличение размера шрифта для ввода */
     }
     .input-container button {
       padding: 10px 15px;
@@ -126,11 +138,11 @@
       background: #4CAF50;
       color: white;
       border-radius: 5px;
-      position: fixed; /* Make footer fixed */
-      bottom: 0; /* Stick to bottom */
-      left: 0; /* Align to left */
-      right: 0; /* Align to right */
-      z-index: 1000; /* Ensure it stays above other content */
+      position: fixed; /* Фиксированный футер */
+      bottom: 0; /* Прикрепить к низу */
+      left: 0; /* Выровнять по левому краю */
+      right: 0; /* Выровнять по правому краю */
+      z-index: 1000; /* Убедиться, что он выше другого контента */
     }
     footer button {
       margin: 5px;
@@ -146,58 +158,58 @@
     }
     @media (max-width: 600px) {
       .chat-container {
-        height: 400px; /* Reduced height for smaller screens */
-        padding: 10px; /* Adjust padding */
+        height: 400px; /* Уменьшенная высота для маленьких экранов */
+        padding: 10px; /* Регулировка отступов */
       }
       .input-container {
-        flex-direction: column; /* Stack input and button on small screens */
+        flex-direction: column; /* Упорядочить ввод и кнопку на маленьких экранах */
       }
       .input-container input {
-        margin-bottom: 10px; /* Space between input and button */
+        margin-bottom: 10px; /* Отступ между вводом и кнопкой */
       }
     }
   </style>
 </head>
 <body>
 <header>
-  <h1>Chat Bot</h1>
+  <h1>Чат-Бот</h1>
 </header>
 <div class="chat-container">
   <div class="messages" id="messages">
-    <!-- Messages will be displayed here -->
+    <!-- Сообщения будут отображены здесь -->
   </div>
   <div class="loading" id="loading">
-    <span>Bot is typing</span>
+    <span>Бот печатает</span>
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>
   </div>
   <div class="button-container" id="buttonContainer">
-    <!-- Default messages as buttons will be added here -->
+    <!-- Предварительно заданные сообщения как кнопки будут добавлены здесь -->
   </div>
   <div class="input-container">
-    <input type="text" id="userInput" placeholder="Type your message..." />
-    <button onclick="sendMessage()">Send</button>
+    <input type="text" id="userInput" placeholder="Введите ваше сообщение..." />
+    <button onclick="sendMessage()">Отправить</button>
   </div>
+  <button class="button clear-button" onclick="clearMessages()">Очистить Сообщения</button> <!-- Кнопка очистки -->
+
 </div>
 
 <footer>
-  <button class="button" onclick="location.href='expenses.html'">Finance Analysis</button>
-  <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
-  <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+  <button class="button" onclick="location.href='expenses.html'">Анализ Финансов</button>
+  <button class="big-button" onclick="location.href='chat.html'">Чат-Бот</button>
+  <button class="button" onclick="location.href='bills.html'">Страница Счетов</button>
 </footer>
 
 <script>
-  // Map for storing different responses based on user questions
+  // Карта для хранения различных ответов на основе вопросов пользователя
   const responsesMap = new Map([
-    ["Hi", "Hello! How can I assist you today?"],
-    ["expenses", "What type of expenses would you like to analyze?"],
-    ["budgeting", "Do you have any specific questions about budgeting?"],
-    ["saving", "Would you like tips on saving money?"],
-    ["goals", "How can I help you with your financial goals?"]
+    ["Сколько я потратил на каршеринг в этом месяце?", "На каршеринг вы потратили 300 рублей в этом месяце. И это на 50 рублей больше чем в прошлом месяце!"],
+    ["Хочу откладывать на машину", "В месяц в среднем вы способны откладывать до 979 рублей, что в год примерно 11748. Этого хватит на део матиз"],
+    ["бюджет", "У вас есть конкретные вопросы о бюджете?"],
   ]);
 
-  // Function to display messages from localStorage
+  // Функция для отображения сообщений из localStorage
   function displayStoredMessages() {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
     const messagesContainer = document.getElementById('messages');
@@ -207,16 +219,16 @@
       messageDiv.textContent = msg.text;
       messagesContainer.appendChild(messageDiv);
     });
-    scrollToBottom(); // Scroll to the bottom after loading messages
+    scrollToBottom(); // Прокрутить вниз после загрузки сообщений
   }
 
-  // Function to scroll to the bottom of the messages container
+  // Функция прокрутки вниз контейнера сообщений
   function scrollToBottom() {
     const messagesContainer = document.getElementById('messages');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Set scroll position to the bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Установить позицию прокрутки в конец
   }
 
-  // Function to display default messages as buttons
+  // Функция для отображения предварительных сообщений как кнопок
   function displayDefaultMessages() {
     const buttonContainer = document.getElementById('buttonContainer');
     responsesMap.forEach((response, question) => {
@@ -224,83 +236,89 @@
       button.textContent = question;
       button.onclick = () => {
         populateInput(question);
-        sendMessage(); // Automatically send the message
+        sendMessage(); // Автоматически отправить сообщение
       };
       buttonContainer.appendChild(button);
     });
   }
 
-  // Function to populate input field with button message
+  // Функция для заполнения поля ввода сообщением кнопки
   function populateInput(message) {
     const userInput = document.getElementById('userInput');
-    userInput.value = message; // Set the input value to the button's message
+    userInput.value = message; // Установить значение ввода в сообщение кнопки
   }
 
-  // Function to send user messages
+  // Функция для отправки сообщений пользователя
   function sendMessage() {
     const userInput = document.getElementById('userInput');
     const userMessage = userInput.value.trim();
     if (userMessage) {
       const messagesContainer = document.getElementById('messages');
 
-      // Display user message
+      // Отобразить сообщение пользователя
       const userMessageDiv = document.createElement('div');
       userMessageDiv.className = 'message user-message';
       userMessageDiv.textContent = userMessage;
       messagesContainer.appendChild(userMessageDiv);
 
-      // Store user message in localStorage
+      // Сохранить сообщение пользователя в localStorage
       storeMessage(userMessage, 'user');
 
-      // Clear input
+      // Очистить ввод
       userInput.value = '';
-      scrollToBottom(); // Scroll to the bottom after sending message
+      scrollToBottom(); // Прокрутить вниз после отправки сообщения
 
-      // Show loading animation
+      // Показать анимацию загрузки
       const loading = document.getElementById('loading');
       loading.style.display = 'block';
 
-      // Delay bot response
+      // Задержка для ответа бота
       setTimeout(() => {
-        loading.style.display = 'none'; // Hide loading animation
+        loading.style.display = 'none'; // Скрыть анимацию загрузки
         const botResponse = getBotResponse(userMessage);
         const botResponseDiv = document.createElement('div');
         botResponseDiv.className = 'message bot-message';
         botResponseDiv.textContent = botResponse;
         messagesContainer.appendChild(botResponseDiv);
 
-        // Store bot response in localStorage
+        // Сохранить ответ бота в localStorage
         storeMessage(botResponse, 'bot');
 
-        // Animate the bot response
+        // Анимация ответа бота
         requestAnimationFrame(() => {
-          botResponseDiv.style.opacity = 1; // Fade in
+          botResponseDiv.style.opacity = 1; // Появление
         });
 
-        scrollToBottom(); // Scroll to the bottom after bot responds
-      }, 2000); // 2 seconds delay
+        scrollToBottom(); // Прокрутить вниз после ответа бота
+      }, 2000); // Задержка 2 секунды
     }
   }
 
-  // Function to retrieve bot response based on user input
+  // Функция для получения ответа бота на основе пользовательского ввода
   function getBotResponse(userMessage) {
-    // Simple keyword matching
+    // Простое сопоставление ключевых слов
     for (let [question, response] of responsesMap) {
       if (userMessage.toLowerCase().includes(question.toLowerCase())) {
         return response;
       }
     }
-    return "I'm sorry, I didn't understand that."; // Default response
+    return "Извините, я не понял."; // Ответ по умолчанию
   }
 
-  // Function to store message in localStorage
+  // Функция для сохранения сообщения в localStorage
   function storeMessage(text, type) {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
     storedMessages.push({ text, type });
     localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
   }
 
-  // Initialize the chat with stored messages and default messages as buttons
+  // Функция для очистки всех сообщений из localStorage и отображения
+  function clearMessages() {
+    localStorage.removeItem('chatMessages'); // Очистить localStorage
+    document.getElementById('messages').innerHTML = ''; // Очистить отображаемые сообщения
+  }
+
+  // Инициализация чата с сохраненными сообщениями и предварительными сообщениями как кнопками
   displayStoredMessages();
   displayDefaultMessages();
 </script>
