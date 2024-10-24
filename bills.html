@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,12 +12,14 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+
         header {
             background: #9ABCE2;
             color: white;
             padding: 15px;
             text-align: center;
         }
+
         .bills-container {
             background: white;
             border-radius: 8px;
@@ -25,6 +28,7 @@
             max-width: 600px;
             margin: auto;
         }
+
         .bills-list {
             margin-bottom: 20px;
             max-height: 300px;
@@ -33,21 +37,27 @@
             border-radius: 5px;
             padding: 10px;
         }
+
         .bill-item {
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
         }
+
         .bill-item:last-child {
-            border-bottom: none; /* Remove border for last item */
+            border-bottom: none;
+            /* Remove border for last item */
         }
+
         .bill-details {
             font-size: 14px;
             color: #555;
         }
+
         footer {
             text-align: center;
             margin-top: 20px;
         }
+
         footer button {
             background: #9ABCE2;
             color: white;
@@ -56,53 +66,56 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         footer button:hover {
             background: #679ed9;
         }
     </style>
 </head>
+
 <body>
-<header>
-    <h1>Bills Tracker</h1>
-</header>
-<div class="bills-container">
-    <div class="bills-list" id="billsList">
-        <!-- Bills will be displayed here -->
+    <header>
+        <h1>Bills Tracker</h1>
+    </header>
+    <div class="bills-container">
+        <div class="bills-list" id="billsList">
+            <!-- Bills will be displayed here -->
+        </div>
     </div>
-</div>
 
-<footer>
-    <button onclick="location.href='chat.html'">Back to Chat Bot</button>
-</footer>
+    <footer>
+        <button onclick="location.href='chat.html'">Back to Chat Bot</button>
+    </footer>
 
-<script>
-    // Default bills data with unique ID, date, price, and place
-    const defaultBills = [
-        { id: 1, date: "2024-01-15", description: "Electricity Bill", price: 100, place: "City Power" },
-        { id: 2, date: "2024-01-20", description: "Water Bill", price: 50, place: "City Water Supply" },
-        { id: 3, date: "2024-02-05", description: "Internet Bill", price: 60, place: "ISP Corp" },
-        { id: 4, date: "2024-02-01", description: "Rent", price: 1200, place: "Apartment Complex" },
-        { id: 5, date: "2024-02-10", description: "Phone Bill", price: 40, place: "Mobile Service Provider" }
-    ];
+    <script>
+        // Default bills data with unique ID, date, price, and place
+        const defaultBills = [
+            { id: 1, date: "2024-01-15", description: "Хуйняlectricity Bill", price: 100, place: "City Power" },
+            { id: 2, date: "2024-01-20", description: "Water Bill", price: 50, place: "City Water Supply" },
+            { id: 3, date: "2024-02-05", description: "Internet Bill", price: 60, place: "ISP Corp" },
+            { id: 4, date: "2024-02-01", description: "Rent", price: 1200, place: "Apartment Complex" },
+            { id: 5, date: "2024-02-10", description: "Phone Bill", price: 40, place: "Mobile Service Provider" }
+        ];
 
-    // Function to display default bills
-    function displayBills() {
-        const billsList = document.getElementById('billsList');
-        defaultBills.forEach(bill => {
-            const billItem = document.createElement('div');
-            billItem.className = 'bill-item';
-            billItem.innerHTML = `
+        // Function to display default bills
+        function displayBills() {
+            const billsList = document.getElementById('billsList');
+            defaultBills.forEach(bill => {
+                const billItem = document.createElement('div');
+                billItem.className = 'bill-item';
+                billItem.innerHTML = `
                     <strong>${bill.description}</strong>
                     <div class="bill-details">
                         ID: ${bill.id} | Date: ${bill.date} | Price: $${bill.price} | Place: ${bill.place}
                     </div>
                 `;
-            billsList.appendChild(billItem);
-        });
-    }
+                billsList.appendChild(billItem);
+            });
+        }
 
-    // Initialize the bills page
-    displayBills();
-</script>
+        // Initialize the bills page
+        displayBills();
+    </script>
 </body>
+
 </html>
