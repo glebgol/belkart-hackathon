@@ -27,7 +27,7 @@
     }
 
     header {
-      background: #4CAF50;
+      background: #9ABCE2;
       color: white;
       padding: 15px;
       text-align: center;
@@ -59,28 +59,34 @@
       flex: 1;
       overflow-y: auto;
       padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
       margin-bottom: 10px;
       background-color: #fafafa;
-      padding-bottom: 30px; /* Дополнительный отступ для эффекта */
       font-size: 18px; /* Увеличение размера шрифта для сообщений */
     }
 
     .message {
-      margin: 5px 0;
+      max-width: 80%; /* Set a maximum width for messages */
+      margin: 10px; /* Space around each message */
+      padding: 10px;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      display: inline-block; /* Allow messages to fit content */
     }
 
     .user-message {
-      text-align: right;
-      color: #4CAF50;
+      background-color: #9ABCE2; /* User message background */
+      color: white; /* User message text color */
+      text-align: right; /* Align text to right */
+      margin-left: auto; /* Push user messages to the right */
     }
 
     .bot-message {
-      text-align: left;
-      color: #333;
-      opacity: 0; /* Скрыто для анимации */
-      transition: opacity 0.5s ease; /* Анимация для эффекта появления */
+      background-color: #e0e0e0; /* Bot message background */
+      color: #333; /* Bot message text color */
+      text-align: left; /* Align text to left */
+      margin-right: auto; /* Push bot messages to the left */
+      opacity: 0; /* Hidden for animation */
+      transition: opacity 0.5s ease; /* Animation for appearance */
     }
 
     .loading {
@@ -95,7 +101,7 @@
       height: 8px;
       margin: 0 2px;
       border-radius: 50%;
-      background-color: #4CAF50;
+      background-color: #9ABCE2;
       animation: dot-blink 1s infinite;
     }
 
@@ -118,7 +124,7 @@
     }
 
     .button-container button {
-      background: #4CAF50;
+      background: #9ABCE2;
       color: white;
       border: none;
       padding: 10px 15px;
@@ -129,7 +135,7 @@
     }
 
     .button-container button:hover {
-      background: #45a049;
+      background: #9ABCE2;
     }
 
     .input-container {
@@ -146,7 +152,7 @@
 
     .input-container button {
       padding: 10px 15px;
-      background: #4CAF50;
+      background: #9ABCE2;
       color: white;
       border: none;
       border-radius: 5px;
@@ -155,13 +161,13 @@
     }
 
     .input-container button:hover {
-      background: #45a049;
+      background: #9ABCE2;
     }
 
     footer {
       text-align: center;
       padding: 10px 0;
-      background: #4CAF50;
+      background: #9ABCE2;
       color: white;
       border-radius: 5px;
       position: fixed; /* Фиксированный футер */
@@ -174,7 +180,7 @@
     footer button {
       margin: 5px;
       padding: 10px 15px;
-      background: #4CAF50;
+      background: #4994e7;
       color: white;
       border: none;
       border-radius: 5px;
@@ -202,7 +208,7 @@
 <body>
 <header>
   <h1>Чат-Бот БЕЛКАрт</h1>
-  <img src="https://github.com/glebgol/belkart-hackathon/blob/main/belka.JPG?raw=true" alt="Avatar" class="avatar"> <!-- Вставьте URL вашего изображения аватара -->
+  <img src="belka.jpg" alt="Avatar" class="avatar"> <!-- Вставьте URL вашего изображения аватара -->
 </header>
 <div class="chat-container">
   <div class="messages" id="messages">
