@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Bot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 80px; /* Space for the sticky footer */
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure full height for sticky footer */
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .chat-container {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 100%; /* Allow full width on small screens */
+      width: 600px; /* Set a max width */
+      height: 500px; /* Fixed height for the chat container */
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: #fafafa;
+      padding-bottom: 30px; /* Extra padding for margin effect */
+    }
+    .message {
+      margin: 5px 0;
+    }
+    .user-message {
+      text-align: right;
+      color: #4CAF50;
+    }
+    .bot-message {
+      text-align: left;
+      color: #333;
+      opacity: 0; /* Start hidden for animation */
+      transition: opacity 0.5s ease; /* Animation for fade-in effect */
+    }
+    .loading {
+      font-size: 16px;
+      color: #333;
+      display: none; /* Hidden by default */
+    }
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin: 0 2px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      animation: dot-blink 1s infinite;
+    }
+    @keyframes dot-blink {
+      0%, 20% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .button-container button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      flex: 1 1 100px; /* Flexible button size */
+    }
+    .button-container button:hover {
+      background: #45a049;
+    }
+    .input-container {
+      display: flex;
+    }
+    .input-container input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .input-container button {
+      padding: 10px 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+    .input-container button:hover {
+      background: #45a049;
+    }
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      background: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      position: fixed; /* Make footer fixed */
+      bottom: 0; /* Stick to bottom */
+      left: 0; /* Align to left */
+      right: 0; /* Align to right */
+      z-index: 1000; /* Ensure it stays above other content */
+    }
+    footer button {
+      margin: 5px;
+      padding: 10px 15px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    footer button:hover {
+      background: #45a049;
+    }
+    @media (max-width: 600px) {
+      .chat-container {
+        height: 400px; /* Reduced height for smaller screens */
+        padding: 10px; /* Adjust padding */
+      }
+      .input-container {
+        flex-direction: column; /* Stack input and button on small screens */
+      }
+      .input-container input {
+        margin-bottom: 10px; /* Space between input and button */
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Chat Bot</h1>
+</header>
+<div class="chat-container">
+  <div class="messages" id="messages">
+    <!-- Messages will be displayed here -->
+  </div>
+  <div class="loading" id="loading">
+    <span>Bot is typing</span>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+  <div class="button-container" id="buttonContainer">
+    <!-- Default messages as buttons will be added here -->
+  </div>
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<footer>
+  <button class="button" onclick="location.href='expenses.html'">Finance Analysis</button>
+  <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
+  <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+</footer>
+
+<script>
+  // Map for storing different responses based on user questions
+  const responsesMap = new Map([
+    ["Hi", "Hello! How can I assist you today?"],
+    ["expenses", "What type of expenses would you like to analyze?"],
+    ["budgeting", "Do you have any specific questions about budgeting?"],
+    ["saving", "Would you like tips on saving money?"],
+    ["goals", "How can I help you with your financial goals?"]
+  ]);
+
+  // Function to display messages from localStorage
+  function displayStoredMessages() {
+    const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    const messagesContainer = document.getElementById('messages');
+    storedMessages.forEach(msg => {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = msg.type === 'user' ? 'message user-message' : 'message bot-message';
+      messageDiv.textContent = msg.text;
+      messagesContainer.appendChild(messageDiv);
+    });
+    scrollToBottom(); // Scroll to the bottom after loading messages
+  }
+
+  // Function to scroll to the bottom of the messages container
+  function scrollToBottom() {
+    const messagesContainer = document.getElementById('messages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Set scroll position to the bottom
+  }
+
+  // Function to display default messages as buttons
+  function displayDefaultMessages() {
+    const buttonContainer = document.getElementById('buttonContainer');
+    responsesMap.forEach((response, question) => {
+      const button = document.createElement('button');
+      button.textContent = question;
+      button.onclick = () => {
+        populateInput(question);
+        sendMessage(); // Automatically send the message
+      };
+      buttonContainer.appendChild(button);
+    });
+  }
+
+  // Function to populate input field with button message
+  function populateInput(message) {
+    const userInput = document.getElementById('userInput');
+    userInput.value = message; // Set the input value to the button's message
+  }
+
+  // Function to send user messages
+  function sendMessage() {
+    const userInput = document.getElementById('userInput');
+    const userMessage = userInput.value.trim();
+    if (userMessage) {
+      const messagesContainer = document.getElementById('messages');
+
+      // Display user message
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.className = 'message user-message';
+      userMessageDiv.textContent = userMessage;
+      messagesContainer.appendChild(userMessageDiv);
+
+      // Store user message in localStorage
+      storeMessage(userMessage, 'user');
+
+      // Clear input
+      userInput.value = '';
+      scrollToBottom(); // Scroll to the bottom after sending message
+
+      // Show loading animation
+      const loading = document.getElementById('loading');
+      loading.style.display = 'block';
+
+      // Delay bot response
+      setTimeout(() => {
+        loading.style.display = 'none'; // Hide loading animation
+        const botResponse = getBotResponse(userMessage);
+        const botResponseDiv = document.createElement('div');
+        botResponseDiv.className = 'message bot-message';
+        botResponseDiv.textContent = botResponse;
+        messagesContainer.appendChild(botResponseDiv);
+
+        // Store bot response in localStorage
+        storeMessage(botResponse, 'bot');
+
+        // Animate the bot response
+        requestAnimationFrame(() => {
+          botResponseDiv.style.opacity = 1; // Fade in
+        });
+
+        scrollToBottom(); // Scroll to the bottom after bot responds
+      }, 2000); // 2 seconds delay
+    }
+  }
+
+  // Function to retrieve bot response based on user input
+  function getBotResponse(userMessage) {
+    // Simple keyword matching
+    for (let [question, response] of responsesMap) {
+      if (userMessage.toLowerCase().includes(question.toLowerCase())) {
+        return response;
+      }
+    }
+    return "I'm sorry, I didn't understand that."; // Default response
+  }
+
+  // Function to store message in localStorage
+  function storeMessage(text, type) {
+    const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    storedMessages.push({ text, type });
+    localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
+  }
+
+  // Initialize the chat with stored messages and default messages as buttons
+  displayStoredMessages();
+  displayDefaultMessages();
+</script>
+</body>
+</html>

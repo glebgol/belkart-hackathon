@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expenses Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+    }
+    .chart-container {
+      position: relative;
+      margin: auto;
+      max-width: 600px;
+      display: flex;
+      justify-content: space-around;
+    }
+    canvas {
+      max-width: 300px;
+      max-height: 300px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    footer {
+      background: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      position: relative;
+      width: 100%;
+    }
+    .button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background: #45a049;
+    }
+    @media (max-width: 600px) {
+      .button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+      canvas {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Expenses Analysis</h1>
+</header>
+<main>
+  <h2>Your Expenses</h2>
+  <div class="chart-container">
+    <div>
+      <canvas id="expensesBarChart"></canvas>
+      <h3>Expenses by Type (Bar Chart)</h3>
+    </div>
+    <div>
+      <canvas id="expensesPieChart"></canvas>
+      <h3>Expenses Distribution (Pie Chart)</h3>
+    </div>
+  </div>
+  <h3>Expenses List</h3>
+  <table id="expensesTable">
+    <thead>
+    <tr>
+      <th>Price</th>
+      <th>Type</th>
+      <th>Product Type</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Expenses will be added here dynamically -->
+    </tbody>
+  </table>
+</main>
+<footer>
+  <button class="button" onclick="location.href='expenses.html'">Finance Analysis</button>
+  <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
+  <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Default expenses data
+  const expenses = [
+    { price: 50, type: 'Food', productType: 'Groceries', date: '2023-10-01' },
+    { price: 30, type: 'Transport', productType: 'Bus', date: '2023-10-02' },
+    { price: 100, type: 'Utilities', productType: 'Electricity', date: '2023-10-03' },
+    { price: 20, type: 'Food', productType: 'Dining', date: '2023-10-04' },
+    { price: 200, type: 'Shopping', productType: 'Clothing', date: '2023-10-05' },
+  ];
+
+  // Function to render expenses in the table
+  function renderExpenses() {
+    const tableBody = document.querySelector('#expensesTable tbody');
+    expenses.forEach(expense => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+                    <td>$${expense.price}</td>
+                    <td>${expense.type}</td>
+                    <td>${expense.productType}</td>
+                    <td>${expense.date}</td>
+                `;
+      tableBody.appendChild(row);
+    });
+  }
+
+  // Function to render the bar chart
+  function renderBarChart() {
+    const ctx = document.getElementById('expensesBarChart').getContext('2d');
+    const labels = [...new Set(expenses.map(exp => exp.type))];
+    const data = labels.map(label => {
+      return expenses
+              .filter(exp => exp.type === label)
+              .reduce((sum, exp) => sum + exp.price, 0);
+    });
+
+    const expensesBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Expenses by Type',
+          data: data,
+          backgroundColor: 'rgba(76, 175, 80, 0.6)',
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+
+  // Function to render the pie chart
+  function renderPieChart() {
+    const ctx = document.getElementById('expensesPieChart').getContext('2d');
+    const labels = [...new Set(expenses.map(exp => exp.type))];
+    const data = labels.map(label => {
+      return expenses
+              .filter(exp => exp.type === label)
+              .reduce((sum, exp) => sum + exp.price, 0);
+    });
+
+    const expensesPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Expenses Distribution',
+          data: data,
+          backgroundColor: [
+            'rgba(76, 175, 80, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(255, 205, 86, 0.6)',
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+          ],
+        }],
+      },
+      options: {
+        responsive: true,
+      }
+    });
+  }
+
+  // Initialize the page
+  renderExpenses();
+  renderBarChart();
+  renderPieChart();
+</script>
+</body>
+</html>

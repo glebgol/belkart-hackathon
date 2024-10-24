@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bills Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        header {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        .button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px;
+            margin: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+        .big-button {
+            font-size: 20px;
+            padding: 20px;
+            min-width: 200px;
+        }
+        @media (max-width: 600px) {
+            .big-button {
+                font-size: 18px;
+                padding: 15px;
+            }
+            .button {
+                font-size: 14px;
+                padding: 10px;
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Bills Page</h1>
+</header>
+<main>
+    <h2>Your Bills</h2>
+    <p>Manage your bills and payments here.</p>
+</main>
+<footer>
+    <button class="button" onclick="location.href='expenses.html'">Finance Analysis</button>
+    <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
+    <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+</footer>
+</body>
+</html>
