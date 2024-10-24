@@ -25,12 +25,23 @@
       flex-direction: column;
       min-height: 100vh; /* Обеспечить полную высоту для фиксированного футера */
     }
+
     header {
       background: #4CAF50;
       color: white;
       padding: 15px;
       text-align: center;
     }
+
+    .avatar {
+      width: 100px; /* Ширина аватара */
+      height: 100px; /* Высота аватара */
+      border-radius: 50%; /* Круглая форма */
+      object-fit: cover; /* Обрезать изображение по размеру */
+      margin: 10px auto; /* Центрировать изображение */
+      border: 3px solid white; /* Белая рамка вокруг аватара */
+    }
+
     .chat-container {
       background: white;
       border-radius: 8px;
@@ -43,6 +54,7 @@
       display: flex;
       flex-direction: column;
     }
+
     .messages {
       flex: 1;
       overflow-y: auto;
@@ -54,24 +66,29 @@
       padding-bottom: 30px; /* Дополнительный отступ для эффекта */
       font-size: 18px; /* Увеличение размера шрифта для сообщений */
     }
+
     .message {
       margin: 5px 0;
     }
+
     .user-message {
       text-align: right;
       color: #4CAF50;
     }
+
     .bot-message {
       text-align: left;
       color: #333;
       opacity: 0; /* Скрыто для анимации */
       transition: opacity 0.5s ease; /* Анимация для эффекта появления */
     }
+
     .loading {
       font-size: 16px;
       color: #333;
       display: none; /* Скрыто по умолчанию */
     }
+
     .dot {
       display: inline-block;
       width: 8px;
@@ -81,6 +98,7 @@
       background-color: #4CAF50;
       animation: dot-blink 1s infinite;
     }
+
     @keyframes dot-blink {
       0%, 20% {
         opacity: 1;
@@ -92,11 +110,13 @@
         opacity: 1;
       }
     }
+
     .button-container {
       display: flex;
       flex-wrap: wrap;
       margin-bottom: 10px;
     }
+
     .button-container button {
       background: #4CAF50;
       color: white;
@@ -107,12 +127,15 @@
       cursor: pointer;
       flex: 1 1 100px; /* Гибкий размер кнопки */
     }
+
     .button-container button:hover {
       background: #45a049;
     }
+
     .input-container {
       display: flex;
     }
+
     .input-container input {
       flex: 1;
       padding: 10px;
@@ -120,6 +143,7 @@
       border-radius: 5px;
       font-size: 16px; /* Увеличение размера шрифта для ввода */
     }
+
     .input-container button {
       padding: 10px 15px;
       background: #4CAF50;
@@ -129,9 +153,11 @@
       cursor: pointer;
       margin-left: 5px;
     }
+
     .input-container button:hover {
       background: #45a049;
     }
+
     footer {
       text-align: center;
       padding: 10px 0;
@@ -144,6 +170,7 @@
       right: 0; /* Выровнять по правому краю */
       z-index: 1000; /* Убедиться, что он выше другого контента */
     }
+
     footer button {
       margin: 5px;
       padding: 10px 15px;
@@ -153,9 +180,11 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
     footer button:hover {
       background: #45a049;
     }
+
     @media (max-width: 600px) {
       .chat-container {
         height: 400px; /* Уменьшенная высота для маленьких экранов */
@@ -172,7 +201,8 @@
 </head>
 <body>
 <header>
-  <h1>Чат-Бот</h1>
+  <h1>Чат-Бот БЕЛКАрт</h1>
+  <img src="belka.jpg" alt="Avatar" class="avatar"> <!-- Вставьте URL вашего изображения аватара -->
 </header>
 <div class="chat-container">
   <div class="messages" id="messages">
@@ -192,7 +222,6 @@
     <button onclick="sendMessage()">Отправить</button>
   </div>
   <button class="button clear-button" onclick="clearMessages()">Очистить Сообщения</button> <!-- Кнопка очистки -->
-
 </div>
 
 <footer>
