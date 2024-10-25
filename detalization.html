@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детализация чека</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fd;
+        }
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f1f7;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .store-info {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #f0f1f7;
+        }
+        .store-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background-color: #4e73f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #fff;
+            font-size: 24px;
+        }
+        .store-details {
+            flex-grow: 1;
+        }
+        .store-details h2, .store-total {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+        .store-address {
+            color: #666;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .store-total {
+            font-size: 20px;
+            margin-top: 5px;
+        }
+        .items {
+            padding: 20px;
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .item-details {
+            flex-grow: 1;
+        }
+        .item-name {
+            font-size: 14px;
+            color: #333;
+        }
+        .item-quantity {
+            font-size: 12px;
+            color: #666;
+        }
+        .item-price {
+            font-size: 14px;
+            color: #333;
+        }
+        .footer {
+            padding: 20px;
+            background-color: #f0f1f7;
+        }
+        .footer-info {
+            font-size: 12px;
+            color: #666;
+        }
+        .footer-info span {
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Детализация чека</h1>
+        </div>
+        <div class="store-info">
+            <div class="store-icon">🏪</div>
+            <div class="store-details">
+                <h2>Магазин</h2>
+                <div class="store-total">3 217,00 ₽</div>
+                <div class="store-address">Для дома</div>
+            </div>
+        </div>
+        <div class="items">
+            <div class="item">
+                <div class="item-details">
+                    <div class="item-name">Сечение кабеля</div>
+                    <div class="item-quantity">1 x 456,00 ₽</div>
+                </div>
+                <div class="item-price">456,00 ₽</div>
+            </div>
+            <div class="item">
+                <div class="item-details">
+                    <div class="item-name">Умная колонка</div>
+                    <div class="item-quantity">1 x 1 287,00 ₽</div>
+                </div>
+                <div class="item-price">1 287,00 ₽</div>
+            </div>
+            <div class="item">
+                <div class="item-details">
+                    <div class="item-name">Светодиодная лампа</div>
+                    <div class="item-quantity">1 x 987,00 ₽</div>
+                </div>
+                <div class="item-price">987,00 ₽</div>
+            </div>
+            <div class="item">
+                <div class="item-details">
+                    <div class="item-name">Набор для хранения фруктов</div>
+                    <div class="item-quantity">1 x 487,00 ₽</div>
+                </div>
+                <div class="item-price">487,00 ₽</div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-info">
+                <span>24.10.2024, 21:53</span>
+                <span>ул. Пример, 197, Нижний Новгород</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
