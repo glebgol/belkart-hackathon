@@ -43,8 +43,26 @@
         }
         .big-button {
             font-size: 20px;
-            padding: 20px;
-            min-width: 200px;
+            padding: 0; /* Удалите отступы */
+            width: 60px; /* Установите фиксированную ширину */
+            height: 60px; /* Установите фиксированную высоту */
+            border-radius: 50%; /* Круглая форма */
+            background: #4994e7; /* Цвет фона */
+            color: white; /* Цвет текста */
+            border: none; /* Уберите рамку */
+            cursor: pointer; /* Указатель курсора при наведении */
+            position: relative; /* Для позиционирования содержимого */
+        }
+
+        .big-button img {
+            position: absolute; /* Позволяет позиционировать изображение */
+            top: 50%; /* Установите верхнюю позицию в 50% */
+            left: 50%; /* Установите левую позицию в 50% */
+            transform: translate(-50%, -50%); /* Сдвиньте изображение на половину его ширины и высоты */
+        }
+
+        .big-button:hover {
+            background: #1b6fc7; /* Цвет фона при наведении */
         }
         @media (max-width: 600px) {
             .big-button {
@@ -57,6 +75,15 @@
                 min-width: 150px;
             }
         }
+        footer button {
+            padding: 10px 15px;
+            background: #4994e7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 5px 5px 40px;
+        }
     </style>
 </head>
 <body>
@@ -68,9 +95,9 @@
     <p>Here you can analyze your finances with diagrams.</p>
 </main>
 <footer>
-    <button class="button" onclick="location.href='index.html'">Back</button>
-    <button class="big-button" onclick="location.href='chat.html'">Chat Bot</button>
-    <button class="button" onclick="location.href='bills.html'">Bills Page</button>
+    <button class="big-button" onclick="location.href='expenses.html'"><img src="https://cdn-icons-png.freepik.com/256/12538/12538775.png?semt=ais_hybrid" height="50px" alt=""></button>
+    <button class="big-button" onclick="location.href='chat.html'"><img src="https://cdn-icons-png.flaticon.com/512/5962/5962463.png" height="50px" alt=""></button>
+    <button class="big-button" onclick="location.href='bills.html'"><img height="50px" src="https://cdn-icons-png.flaticon.com/512/5499/5499451.png"></button>
 </footer>
 </body>
 </html>
