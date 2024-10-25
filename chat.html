@@ -6,24 +6,24 @@
   <title>Чат-Бот</title>
   <style>
     .clear-button {
-      background: red; /* Красный цвет для кнопки очистки */
+      background: red;
       color: white;
       border: none;
       padding: 10px 15px;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px; /* Отступ сверху */
+      margin-top: 10px;
     }
 
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 5px;
-      padding-bottom: 80px; /* Отступ для фиксированного футера */
+      padding-bottom: 80px;
       background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
-      min-height: 100vh; /* Обеспечить полную высоту для фиксированного футера */
+      min-height: 100vh;
     }
 
     header {
@@ -34,21 +34,21 @@
     }
 
     .avatar {
-      width: 100px; /* Ширина аватара */
-      height: 100px; /* Высота аватара */
-      border-radius: 50%; /* Круглая форма */
-      object-fit: cover; /* Обрезать изображение по размеру */
-      margin: 10px auto; /* Центрировать изображение */
-      border: 3px solid white; /* Белая рамка вокруг аватара */
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 10px auto;
+      border: 3px solid white;
     }
 
     .chat-container {
       background: white;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      max-width: 100%; /* Полная ширина на маленьких экранах */
-      width: 600px; /* Максимальная ширина */
-      height: 655px; /* Фиксированная высота для контейнера чата */
+      max-width: 90%;
+      width: 600px;
+      height: 800px; /* Increased height for the chat container */
       margin: auto;
       padding: 20px;
       display: flex;
@@ -61,39 +61,39 @@
       padding: 10px;
       margin-bottom: 10px;
       background-color: #fafafa;
-      font-size: 15px; /* Увеличение размера шрифта для сообщений */
-      max-height: 500px;
+      font-size: 15px;
+      max-height: 600px; /* Increased max-height for the messages area */
     }
 
     .message {
-      max-width: 80%; /* Set a maximum width for messages */
-      margin: 10px; /* Space around each message */
+      max-width: 80%;
+      margin: 10px;
       padding: 10px;
-      border-radius: 10px; /* Rounded corners */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-      display: inline-block; /* Allow messages to fit content */
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: inline-block;
     }
 
     .user-message {
-      background-color: #9ABCE2; /* User message background */
-      color: white; /* User message text color */
-      text-align: right; /* Align text to right */
-      margin-left: auto; /* Push user messages to the right */
+      background-color: #9ABCE2;
+      color: white;
+      text-align: right;
+      margin-left: auto;
     }
 
     .bot-message {
-      background-color: #e0e0e0; /* Bot message background */
-      color: #333; /* Bot message text color */
-      text-align: left; /* Align text to left */
-      margin-right: auto; /* Push bot messages to the left */
-      opacity: 0; /* Hidden for animation */
-      transition: opacity 0.5s ease; /* Animation for appearance */
+      background-color: #e0e0e0;
+      color: #333;
+      text-align: left;
+      margin-right: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     .loading {
       font-size: 16px;
       color: #333;
-      display: none; /* Скрыто по умолчанию */
+      display: none;
     }
 
     .dot {
@@ -132,7 +132,7 @@
       margin: 5px;
       border-radius: 5px;
       cursor: pointer;
-      flex: 1 1 100px; /* Гибкий размер кнопки */
+      flex: 1 1 100px;
     }
 
     .button-container button:hover {
@@ -148,7 +148,7 @@
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
-      font-size: 16px; /* Увеличение размера шрифта для ввода */
+      font-size: 16px;
     }
 
     .input-container button {
@@ -171,11 +171,11 @@
       background: #9ABCE2;
       color: white;
       border-radius: 5px;
-      position: fixed; /* Фиксированный футер */
-      bottom: 0; /* Прикрепить к низу */
-      left: 0; /* Выровнять по левому краю */
-      right: 0; /* Выровнять по правому краю */
-      z-index: 1000; /* Убедиться, что он выше другого контента */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
     footer button {
@@ -194,63 +194,60 @@
 
     @media (max-width: 600px) {
       .chat-container {
-        height: 400px; /* Уменьшенная высота для маленьких экранов */
-        padding: 10px; /* Регулировка отступов */
+        height: 500px; /* Adjusted height for small screens */
+        padding: 10px;
       }
       .input-container {
-        flex-direction: column; /* Упорядочить ввод и кнопку на маленьких экранах */
+        flex-direction: column;
       }
       .input-container input {
-        margin-bottom: 10px; /* Отступ между вводом и кнопкой */
+        margin-bottom: 10px;
       }
     }
+
     .big-button {
       font-size: 20px;
-      padding: 0; /* Удалите отступы */
-      width: 60px; /* Установите фиксированную ширину */
-      height: 60px; /* Установите фиксированную высоту */
-      border-radius: 50%; /* Круглая форма */
-      background: #4994e7; /* Цвет фона */
-      color: white; /* Цвет текста */
-      border: none; /* Уберите рамку */
-      cursor: pointer; /* Указатель курсора при наведении */
-      position: relative; /* Для позиционирования содержимого */
+      padding: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #4994e7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      position: relative;
     }
 
     .big-button img {
-      position: absolute; /* Позволяет позиционировать изображение */
-      top: 50%; /* Установите верхнюю позицию в 50% */
-      left: 50%; /* Установите левую позицию в 50% */
-      transform: translate(-50%, -50%); /* Сдвиньте изображение на половину его ширины и высоты */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
     .big-button:hover {
-      background: #1b6fc7; /* Цвет фона при наведении */
+      background: #1b6fc7;
     }
   </style>
 </head>
 <body>
 <header>
-  <img src="https://github.com/glebgol/belkart-hackathon/blob/main/belka.JPG?raw=true" alt="Avatar" class="avatar"> <!-- Вставьте URL вашего изображения аватара -->
+  <img src="https://github.com/glebgol/belkart-hackathon/blob/main/belka.JPG?raw=true" alt="Avatar" class="avatar">
 </header>
 <div class="chat-container">
-  <div class="messages" id="messages">
-    <!-- Сообщения будут отображены здесь -->
-  </div>
+  <div class="messages" id="messages"></div>
   <div class="loading" id="loading">
     <span>Бот печатает</span>
     <div class="dot"></div>
     <div class="dot"></div>
     <div class="dot"></div>
   </div>
-  <div class="button-container" id="buttonContainer">
-    <!-- Предварительно заданные сообщения как кнопки будут добавлены здесь -->
-  </div>
+  <div class="button-container" id="buttonContainer"></div>
   <div class="input-container">
     <input type="text" id="userInput" placeholder="Введите ваше сообщение..." />
     <button onclick="sendMessage()">Отправить</button>
   </div>
-  <button class="button clear-button" onclick="clearMessages()">Очистить Сообщения</button> <!-- Кнопка очистки -->
+  <button class="button clear-button" onclick="clearMessages()">Очистить Сообщения</button>
 </div>
 
 <footer>
@@ -260,14 +257,12 @@
 </footer>
 
 <script>
-  // Карта для хранения различных ответов на основе вопросов пользователя
   const responsesMap = new Map([
     ["Сколько я потратил на каршеринг в этом месяце?", "На каршеринг вы потратили 300 рублей в этом месяце. И это на 50 рублей больше чем в прошлом месяце!"],
     ["Хочу откладывать на машину", "В месяц в среднем вы способны откладывать до 979 рублей, что в год примерно 11748. Этого хватит на део матиз"],
     ["Посмотреть последний чек", "11.10.2024 Оплата метро - 0.9 рублей"],
   ]);
 
-  // Функция для отображения сообщений из localStorage
   function displayStoredMessages() {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
     const messagesContainer = document.getElementById('messages');
@@ -277,16 +272,14 @@
       messageDiv.textContent = msg.text;
       messagesContainer.appendChild(messageDiv);
     });
-    scrollToBottom(); // Прокрутить вниз после загрузки сообщений
+    scrollToBottom();
   }
 
-  // Функция прокрутки вниз контейнера сообщений
   function scrollToBottom() {
     const messagesContainer = document.getElementById('messages');
-    messagesContainer.scrollTop = messagesContainer.scrollHeight; // Установить позицию прокрутки в конец
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }
 
-  // Функция для отображения предварительных сообщений как кнопок
   function displayDefaultMessages() {
     const buttonContainer = document.getElementById('buttonContainer');
     responsesMap.forEach((response, question) => {
@@ -294,89 +287,74 @@
       button.textContent = question;
       button.onclick = () => {
         populateInput(question);
-        sendMessage(); // Автоматически отправить сообщение
+        sendMessage();
       };
       buttonContainer.appendChild(button);
     });
   }
 
-  // Функция для заполнения поля ввода сообщением кнопки
   function populateInput(message) {
     const userInput = document.getElementById('userInput');
-    userInput.value = message; // Установить значение ввода в сообщение кнопки
+    userInput.value = message;
   }
 
-  // Функция для отправки сообщений пользователя
   function sendMessage() {
     const userInput = document.getElementById('userInput');
     const userMessage = userInput.value.trim();
     if (userMessage) {
       const messagesContainer = document.getElementById('messages');
 
-      // Отобразить сообщение пользователя
       const userMessageDiv = document.createElement('div');
       userMessageDiv.className = 'message user-message';
       userMessageDiv.textContent = userMessage;
       messagesContainer.appendChild(userMessageDiv);
 
-      // Сохранить сообщение пользователя в localStorage
       storeMessage(userMessage, 'user');
-
-      // Очистить ввод
       userInput.value = '';
-      scrollToBottom(); // Прокрутить вниз после отправки сообщения
+      scrollToBottom();
 
-      // Показать анимацию загрузки
       const loading = document.getElementById('loading');
       loading.style.display = 'block';
 
-      // Задержка для ответа бота
       setTimeout(() => {
-        loading.style.display = 'none'; // Скрыть анимацию загрузки
+        loading.style.display = 'none';
         const botResponse = getBotResponse(userMessage);
         const botResponseDiv = document.createElement('div');
         botResponseDiv.className = 'message bot-message';
         botResponseDiv.textContent = botResponse;
         messagesContainer.appendChild(botResponseDiv);
 
-        // Сохранить ответ бота в localStorage
         storeMessage(botResponse, 'bot');
 
-        // Анимация ответа бота
         requestAnimationFrame(() => {
-          botResponseDiv.style.opacity = 1; // Появление
+          botResponseDiv.style.opacity = 1;
         });
 
-        scrollToBottom(); // Прокрутить вниз после ответа бота
-      }, 2000); // Задержка 2 секунды
+        scrollToBottom();
+      }, 2000);
     }
   }
 
-  // Функция для получения ответа бота на основе пользовательского ввода
   function getBotResponse(userMessage) {
-    // Простое сопоставление ключевых слов
     for (let [question, response] of responsesMap) {
       if (userMessage.toLowerCase().includes(question.toLowerCase())) {
         return response;
       }
     }
-    return "Извините, я не понял."; // Ответ по умолчанию
+    return "Извините, я не понял.";
   }
 
-  // Функция для сохранения сообщения в localStorage
   function storeMessage(text, type) {
     const storedMessages = JSON.parse(localStorage.getItem('chatMessages')) || [];
     storedMessages.push({ text, type });
     localStorage.setItem('chatMessages', JSON.stringify(storedMessages));
   }
 
-  // Функция для очистки всех сообщений из localStorage и отображения
   function clearMessages() {
-    localStorage.removeItem('chatMessages'); // Очистить localStorage
-    document.getElementById('messages').innerHTML = ''; // Очистить отображаемые сообщения
+    localStorage.removeItem('chatMessages');
+    document.getElementById('messages').innerHTML = '';
   }
 
-  // Инициализация чата с сохраненными сообщениями и предварительными сообщениями как кнопками
   displayStoredMessages();
   displayDefaultMessages();
 </script>
