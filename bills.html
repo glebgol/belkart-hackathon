@@ -36,9 +36,10 @@
         .bill-item {
             padding: 10px 0;
             border-bottom: 1px solid #ddd;
+            cursor: pointer;
         }
         .bill-item:last-child {
-            border-bottom: none; /* Remove border for last item */
+            border-bottom: none;
         }
         .bill-details {
             font-size: 14px;
@@ -78,11 +79,11 @@
 <script>
     // Default bills data with unique ID, date, price, and place
     const defaultBills = [
-        { id: 1, date: "2024-01-15", description: "Electricity Bill", price: 100, place: "City Power" },
-        { id: 2, date: "2024-01-20", description: "Water Bill", price: 50, place: "City Water Supply" },
-        { id: 3, date: "2024-02-05", description: "Internet Bill", price: 60, place: "ISP Corp" },
-        { id: 4, date: "2024-02-01", description: "Rent", price: 1200, place: "Apartment Complex" },
-        { id: 5, date: "2024-02-10", description: "Phone Bill", price: 40, place: "Mobile Service Provider" }
+        { id: 1, date: "2024-01-15", description: "Ресторан", price: 100, place: "Alibaba" },
+        { id: 2, date: "2024-01-20", description: "Магазин", price: 50, place: "Sosedi Express" },
+        { id: 3, date: "2024-02-05", description: "Доставка Суши", price: 27, place: "SushVesla" },
+        { id: 4, date: "2024-02-01", description: "Магазин", price: 89, place: "Santa" },
+        { id: 5, date: "2024-02-10", description: "Такси", price: 40, place: "Yandex" }
     ];
 
     // Function to display default bills
@@ -97,8 +98,15 @@
                         ID: ${bill.id} | Date: ${bill.date} | Price: $${bill.price} | Place: ${bill.place}
                     </div>
                 `;
+            billItem.onclick = () => showBillDetails(bill);
             billsList.appendChild(billItem);
         });
+    }
+
+    // Function to show bill details
+    function showBillDetails(bill) {
+        // Redirect to the detalization page
+        location.href = `detalization.html?id=${bill.id}`;
     }
 
     // Initialize the bills page
